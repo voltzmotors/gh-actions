@@ -31,8 +31,8 @@ jobs:
       - name: YarnCacheCompositeAction
         uses: voltzmotors/gh-actions/nodejs/YarnCacheCompositeAction@<version> # <--- change the version
         with: # <--- provide the variables in this block
-          runner_os: ${{ runner.os }} # <-- default 
-          hash: ${{ hashFiles('**/yarn.lock') }} # <--- default
+          runner_os: ${{ runner.os }}
+          hash: ${{ hashFiles('**/yarn.lock') }}
       
       - name: build
         run: yarn build
