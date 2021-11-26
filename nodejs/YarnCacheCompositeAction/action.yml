@@ -1,0 +1,27 @@
+name: yarn-cache-composite
+
+description: Cache or retrieve node_modules cache
+
+inputs:
+  runner_os:
+    description: 'OS of the runner'
+    required: true
+    default: 'Linux'
+  hash:
+    description: 'hashFiles output of the yarn.lock file'
+    required: true
+
+runs:
+  using: "composite"
+  steps: 
+    - uses: actions/cache@v2
+      id: yarn-cache-node-modules 
+      with:
+        path: node_modules
+        key: ${{ inputs.runner_os }}-yarn-cache-node-modules-${{ inputs.hash }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-cache-node-modules-
+    - name: Install dependencies with Yarn
+      if: steps.yarn-cache-node-modules.outputs.cache-hit != 'true'
+      shell: bash
+      run: yarn install
