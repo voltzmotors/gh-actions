@@ -4,7 +4,7 @@
 
 This composite action uses the actions/cache@v2 official cache action to cache the `node_modules` folder. 
 
-They cache key is created by composing the OS and a unique value hash.
+They cache key is created by composing the OS and a value passed in the `hash` argument to the action. This value should be a hash (or checksum) of your yarn.lock file. By doing this we will ignore the cache whenever your lock file has changes - which means that dependencies were added, removed or updated.
 
 
 The key will usually look like this: `Linux-yarn-cache-node-modules-98c9e7f0b8a35c15baeb8be76263c57e62a2efea962f9282e7f085c81d359b6f`
