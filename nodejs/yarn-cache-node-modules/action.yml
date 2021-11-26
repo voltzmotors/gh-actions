@@ -1,6 +1,6 @@
 name: yarn-cache-node-modules
 
-description: Cache or retrieve node_modules cache
+description: Cache node_modules folder for yarn projects
 
 inputs:
   runner_os:
