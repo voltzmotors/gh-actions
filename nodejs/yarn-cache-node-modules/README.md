@@ -1,4 +1,4 @@
-# Yarn Cache Composite Action
+# yarn-cache-node-modules
 
 ## Description
 

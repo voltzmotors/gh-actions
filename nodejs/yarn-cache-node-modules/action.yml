@@ -1,4 +1,4 @@
-name: yarn-cache-composite
+name: yarn-cache-node-modules
 
 description: Cache or retrieve node_modules cache
 
