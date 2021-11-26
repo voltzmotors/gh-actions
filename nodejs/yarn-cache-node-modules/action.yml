@@ -1,0 +1,30 @@
+name: yarn-cache-node-modules
+
+description: Cache node_modules folder for yarn projects
+
+inputs:
+  runner_os:
+    description: 'OS of the runner'
+    required: true
+    default: 'Linux'
+  hash:
+    description: 'hashFiles output of the yarn.lock file'
+    required: true
+  repository_name:
+    description: 'name of the repository that is invoking this action (debug purposes)'
+    default: ${{ GITHUB_REPOSITORY }}
+
+runs:
+  using: "composite"
+  steps: 
+    - uses: actions/cache@v2
+      id: yarn-cache-node-modules 
+      with:
+        path: node_modules
+        key: ${{ repository_name }}-${{ inputs.runner_os }}-yarn-cache-node-modules-${{ inputs.hash }}
+        restore-keys: |
+          ${{ repository_name }}-${{ inputs.runner_os }}-yarn-cache-node-modules-
+    - name: Install dependencies with Yarn
+      if: steps.yarn-cache-node-modules.outputs.cache-hit != 'true'
+      shell: bash
+      run: yarn install
