@@ -35,6 +35,7 @@ jobs:
         with: # <--- provide the variables in this block
           runner_os: ${{ runner.os }}
           hash: ${{ hashFiles('**/yarn.lock') }}
+          repository_name: 'partners'
       
       - name: build
         run: yarn build
@@ -47,6 +48,7 @@ You must provide two variables:
 
 - runner.os = the runner operational system (linux, macos and windows)
 - hash = the output of the function hashFiles, which consist of the yarn.lock hashed value
+- repository_name = not required but you can provide a different name to help you identify the cache of your repo
 
 It isn't necessary to change this values, except if your `yarn.lock` file is in a different place or if you really need to pass a diferent path to it.
 
