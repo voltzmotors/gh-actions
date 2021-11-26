@@ -12,7 +12,7 @@ inputs:
     required: true
   repository_name:
     description: 'name of the repository that is invoking this action (debug purposes)'
-    default: ${{ GITHUB_REPOSITORY }}
+    default: ${{ github.event.repository.name }}
 
 runs:
   using: "composite"
@@ -21,9 +21,9 @@ runs:
       id: yarn-cache-node-modules 
       with:
         path: node_modules
-        key: ${{ repository_name }}-${{ inputs.runner_os }}-yarn-cache-node-modules-${{ inputs.hash }}
+        key: ${{ inputs.repository_name }}-${{ inputs.runner_os }}-yarn-cache-node-modules-${{ inputs.hash }}
         restore-keys: |
-          ${{ repository_name }}-${{ inputs.runner_os }}-yarn-cache-node-modules-
+          ${{ inputs.repository_name }}-${{ inputs.runner_os }}-yarn-cache-node-modules-
     - name: Install dependencies with Yarn
       if: steps.yarn-cache-node-modules.outputs.cache-hit != 'true'
       shell: bash
