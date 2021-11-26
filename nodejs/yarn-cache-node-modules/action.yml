@@ -10,6 +10,9 @@ inputs:
   hash:
     description: 'hashFiles output of the yarn.lock file'
     required: true
+  repository_name:
+    description: 'name of the repository that is invoking this action (debug purposes)'
+    default: ${{ GITHUB_REPOSITORY }}
 
 runs:
   using: "composite"
@@ -18,9 +21,9 @@ runs:
       id: yarn-cache-node-modules 
       with:
         path: node_modules
-        key: ${{ inputs.runner_os }}-yarn-cache-node-modules-${{ inputs.hash }}
+        key: ${{ repository_name }}-${{ inputs.runner_os }}-yarn-cache-node-modules-${{ inputs.hash }}
         restore-keys: |
-          ${{ runner.os }}-yarn-cache-node-modules-
+          ${{ repository_name }}-${{ inputs.runner_os }}-yarn-cache-node-modules-
     - name: Install dependencies with Yarn
       if: steps.yarn-cache-node-modules.outputs.cache-hit != 'true'
       shell: bash
